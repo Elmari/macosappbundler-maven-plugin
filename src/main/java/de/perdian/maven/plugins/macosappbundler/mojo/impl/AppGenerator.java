@@ -85,7 +85,12 @@ public class AppGenerator {
     }
 
     private void copyApplicationDependencies(MavenProject project, File appJavaDirectory) throws MojoExecutionException {
-        this.getLog().info("Copy application dependencies to: " + appJavaDirectory.getAbsolutePath());
+        if (getAppConfiguration().bundleDependencies) {
+            this.getLog().info("Copy application dependencies to: " + appJavaDirectory.getAbsolutePath());
+        } else {
+            this.getLog().info("Skip copying of application dependencies," +
+                    " only copy application artifact to: " + appJavaDirectory.getAbsolutePath());
+        }
         try {
             if (StringUtils.isNotEmpty(this.getPlistConfiguration().JVMMainClassName)) {
                 this.copyClasspathApplicationDependencies(project, new File(appJavaDirectory, "classpath"));
@@ -100,8 +105,10 @@ public class AppGenerator {
     private void copyClasspathApplicationDependencies(MavenProject project, File classpathDirectory) throws IOException {
         ArtifactRepositoryLayout repositoryLayout = new DefaultRepositoryLayout();
         this.copyClasspathApplicationDependencyArtifact(project.getArtifact(), classpathDirectory, repositoryLayout);
-        for (Artifact artifact : project.getArtifacts()) {
-            this.copyClasspathApplicationDependencyArtifact(artifact, classpathDirectory, repositoryLayout);
+        if (getAppConfiguration().bundleDependencies) {
+            for (Artifact artifact : project.getArtifacts()) {
+                this.copyClasspathApplicationDependencyArtifact(artifact, classpathDirectory, repositoryLayout);
+            }
         }
     }
 
@@ -115,8 +122,10 @@ public class AppGenerator {
 
     private void copyModuleApplicationDependencies(MavenProject project, File modulesDirectory) throws IOException {
         this.copyModuleApplicationDependencyArtifact(project.getArtifact(), modulesDirectory);
-        for (Artifact artifact : project.getArtifacts()) {
-            this.copyModuleApplicationDependencyArtifact(artifact, modulesDirectory);
+        if (getAppConfiguration().bundleDependencies) {
+            for (Artifact artifact : project.getArtifacts()) {
+                this.copyModuleApplicationDependencyArtifact(artifact, modulesDirectory);
+            }
         }
     }
 

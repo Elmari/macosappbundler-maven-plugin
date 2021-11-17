@@ -24,4 +24,6 @@ import java.util.List;
 public class AppConfiguration {
     @Parameter
     public List<FileSet> additionalResources = null;
+    @Parameter
+    public boolean bundleDependencies = true;
 }
