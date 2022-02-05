@@ -19,7 +19,7 @@ Maven plugin for creating a native [macOS bundle](https://developer.apple.com/li
     <plugin>
         <groupId>de.perdian.maven.plugins</groupId>
         <artifactId>macosappbundler-maven-plugin</artifactId>
-        <version>1.14.0</version>
+        <version>1.16.0</version>
         <configuration>
             <plist>
                 <JVMMainClassName>de.perdian.test.YourApplication</JVMMainClassName>
@@ -44,7 +44,7 @@ Maven plugin for creating a native [macOS bundle](https://developer.apple.com/li
     <plugin>
         <groupId>de.perdian.maven.plugins</groupId>
         <artifactId>macosappbundler-maven-plugin</artifactId>
-        <version>1.14.0</version>
+        <version>1.16.0</version>
         <configuration>
             <plist>
                 <CFBundleIconFile>src/bundle/test.icns</CFBundleIconFile>
@@ -92,7 +92,7 @@ Maven plugin for creating a native [macOS bundle](https://developer.apple.com/li
     <plugin>
         <groupId>de.perdian.maven.plugins</groupId>
         <artifactId>macosappbundler-maven-plugin</artifactId>
-        <version>1.14.0</version>
+        <version>1.16.0</version>
         <configuration>
             <plist>
                 <CFBundleIconFile>src/bundle/test.icns</CFBundleIconFile>
@@ -168,7 +168,10 @@ The following values can be configured:
 | `NSHighResolutionCapable` | Boolean | No | `true` | Declares if the application supports rendering in HiDPI (Retina). [Details](https://developer.apple.com/documentation/bundleresources/information_property_list/nshighresolutioncapable) |
 | `LSUIElement` | Boolean | No | | Declares if the app is an agent app that runs in the background and doesn't appear in the Dock. [Details](https://developer.apple.com/documentation/bundleresources/information_property_list/lsuielement) |
 | `NSSupportsAutomaticGraphicsSwitching` | Boolean | No | `true` | Declares whether an OpenGL app may utilize the integrated GPU. [Details](https://developer.apple.com/documentation/bundleresources/information_property_list/nssupportsautomaticgraphicsswitching) |
-
+| `NSMicrophoneUsageDescription` | String | No | | A message that tells the user why the app is requesting access to the device’s microphone. [Details](https://developer.apple.com/documentation/bundleresources/information_property_list/nsmicrophoneusagedescription) |
+| `NSCameraUsageDescription` | String | No | | A message that tells the user why the app is requesting access to the device’s camera. [Details](https://developer.apple.com/documentation/bundleresources/information_property_list/nscamerausagedescription) |
+| `NSHumanReadableCopyright` | String | No | | A human-readable copyright notice for the bundle. [Details:](https://developer.apple.com/documentation/bundleresources/information_property_list/nshumanreadablecopyright/) |
+| `NSAppSleepDisabled` | Boolean | No | | Declares if the app is allowed to nap or not. |
 ### DMG configuration
 
 The following other properties can be added to the `dmg` element configuring the generation of the DMG file at the end of the build:
@@ -252,6 +255,8 @@ The available values are:
 - `ARM_64`
 
 ## Development
+
+Changes are documented in the [`CHANGELOG.md`](CHANGELOG.md) file.
 
 The project consists of two main parts: The regular *Maven plugin* (written in Java) and the *native macOS launcher* (written in Objective C).
 
